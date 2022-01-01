@@ -26,6 +26,7 @@ public class MainMenu {
      * @param args
      */
     public static void main(String[] args) {
+
         Scanner keyboardReader = new Scanner(System.in);
         MainMenu mainMenu = new MainMenu();
         int option;
