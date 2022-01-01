@@ -1,5 +1,8 @@
 package api;
 
+import model.Customer;
+import service.CustomerService;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -8,8 +11,10 @@ import java.util.Scanner;
  */
 public class MainMenu {
     private boolean running;
+    private Scanner keyboardReader;
 
     public MainMenu(){
+        this.keyboardReader = new Scanner(System.in);
         this.running = true;
     }
 
@@ -26,15 +31,19 @@ public class MainMenu {
      * @param args
      */
     public static void main(String[] args) {
-
-        Scanner keyboardReader = new Scanner(System.in);
         MainMenu mainMenu = new MainMenu();
-        int option;
+        mainMenu.run();
+    }
 
-        while (mainMenu.isRunning()) {
-            mainMenu.display();                                        // display the menu
-            option = mainMenu.getOptionFromKeyboard(keyboardReader);   // get valid option
-            mainMenu.optionProcess(option);                            // process the option
+    /**
+     * Main loop of main menu
+     */
+    public void run() {
+        int option;
+        while (this.isRunning()) {
+            this.display();                                        // display the menu
+            option = this.getOptionFromKeyboard();   // get valid option
+            this.optionProcess(option);                            // process the option
         }
     }
 
@@ -42,25 +51,26 @@ public class MainMenu {
      * this method displays the main menu of Hotel Reservation Application.
      */
     public void display() {
+        System.out.println("==========Main Menu==========");
         System.out.println("1. Find and reserve a room");
         System.out.println("2. See my reservations");
         System.out.println("3. Create an account");
         System.out.println("4. Admin");
         System.out.println("5. Exit");
+        System.out.println("=============================");
         System.out.println("Enter your option:");
     }
 
     /**
      * This methods get the valid option from user.
      * It will not return until the user gives the valid input.
-     * @param keyboardReader Scanner that can read input from keyboard.
      * @return the method will return the valid option from user.
      */
-    public int getOptionFromKeyboard(Scanner keyboardReader) {
+    public int getOptionFromKeyboard() {
         int option;
         while (true){
             try {
-                option = keyboardReader.nextInt();                    // get the option from user
+                option = this.keyboardReader.nextInt();                    // get the option from user
                 if (option < 1 || option > 5) {
                     System.out.println("Your option is invalid, try to input from 1 to 5.");
                 } else
@@ -70,34 +80,63 @@ public class MainMenu {
                     clear current 'option' in the memory, otherwise user
                     cannot input for second time.
                  */
-                keyboardReader.next();                                // clear the buffer in Scanner
+                this.keyboardReader.next();                                // clear the buffer in Scanner
                 System.out.println("Invalid option, please try again!");
             }
         }
     }
 
+    /**
+     * This methods process the option input from user
+     * @param option from user's input to command line, could be 1 to 5
+     */
     public void optionProcess(int option) {
         switch (option){
             case 1:
-
-                break;
+                this.findAndReserveARoom(); break;                    // find and reserve a room
             case 2:
-
-                break;
+                this.seeMyReservations();   break;                    // see the reservations
             case 3:
-
-                break;
-
+                this.createAccount();       break;                    // create an account
             case 4:
-                break;
-
+                this.runAdminMenu();        break;                    // run the admin menu
             case 5:
-                this.setRunning(false);
-                break;
-
-                default: // this branch will not be used.
-
-                    break;
+                this.setRunning(false);     break;                    // exit the main menu
         }
+    }
+
+    /**
+     * This methods encapsulate the process of finding and reserving a room
+     */
+    public void findAndReserveARoom() {
+
+    }
+
+    /**
+     * This methods encapsulate the process of viewing all reservations
+     */
+    public void seeMyReservations() {
+
+    }
+
+    /**
+     * This methods encapsulate the process of creating an account
+     */
+    public void createAccount() {
+        System.out.println("Enter your email:");
+        String email = this.keyboardReader.next();
+        System.out.println("Enter your first name:");
+        String firstName = this.keyboardReader.next();
+        System.out.println("Enter your last name");
+        String lastName = this.keyboardReader.next();
+//        CustomerService.addCustomer(email,firstName,lastName);
+    }
+
+    /**
+     * This methods encapsulate the access to admin menu
+     */
+    public void runAdminMenu() {
+        AdminMenu adminMenu = new AdminMenu();
+        adminMenu.run();
     }
 }
