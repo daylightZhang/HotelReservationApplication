@@ -3,6 +3,7 @@ package service;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
+import model.Room;
 
 import java.util.Collection;
 import java.util.Date;
@@ -22,19 +23,20 @@ public class ReservationService {
     }
 
     public static IRoom getARoom(String roomID) {
-
+        IRoom r = new Room();
+        return r;
     }
 
-    public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
+//    public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
+//
+//    }
 
-    }
-
-    public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
-
-    }
-    public static Collection<Reservation> getCustomerReservation(Customer customer) {
-
-    }
+//    public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
+//
+//    }
+//    public static Collection<Reservation> getCustomerReservation(Customer customer) {
+//
+//    }
 
     public static void printAllReservation() {
         return;

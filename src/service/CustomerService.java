@@ -2,6 +2,7 @@ package service;
 
 import model.Customer;
 import java.util.Collection;
+import java.util.HashSet;
 
 public class CustomerService {
     public static void addCustomer(String email, String firstName, String lastName) {
@@ -9,10 +10,12 @@ public class CustomerService {
     }
 
     public static Customer getCustomer(String customerEmail) {
-        return Customer;
+        Customer c = new Customer();
+        return c;
     }
 
     public static Collection<Customer> getAllCustomer() {
-        return Collection;
+        Collection<Customer> c = new HashSet<>();
+        return c;
     }
 }
