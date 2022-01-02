@@ -13,6 +13,7 @@ public class Customer {
         this.firstName = firstName;
         this.lastName = lastName;
         if (regex(email) == false) {
+            System.out.println("The email address is invalid, fail to create an account.");
             throw new IllegalArgumentException();
         } else {
             this.email = email;
@@ -55,11 +56,8 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+        return "Name:" + firstName + " " + lastName + "\n" +
+                "Email:" + email + "\n";
     }
 
     @Override

@@ -52,13 +52,13 @@ public class MainMenu {
      * this method displays the main menu of Hotel Reservation Application.
      */
     public void display() {
-        System.out.println("==========Main Menu==========");
+        System.out.println("==========Main Menu===========");
         System.out.println("1. Find and reserve a room");
         System.out.println("2. See my reservations");
         System.out.println("3. Create an account");
         System.out.println("4. Admin");
         System.out.println("5. Exit");
-        System.out.println("=============================");
+        System.out.println("==============================");
         System.out.println("Enter your option:");
     }
 
@@ -130,14 +130,28 @@ public class MainMenu {
         }
 
         ArrayList<IRoom> roomsAvailable = (ArrayList<IRoom>) HotelResource.findARoom(checkIn,checkOut);
+        System.out.println("========Room Available========");
         for (IRoom room : roomsAvailable)
             System.out.println(room);
+        System.out.println("==============================");
         System.out.println("Enter the room number that you want:");
         String roomNo = this.keyboardReader.next();
         IRoom roomChoosed = HotelResource.getRoom(roomNo);
+        if (roomChoosed == null) {
+            System.out.println("The room you want to book is not exist! Please check again.");
+            return;
+        }
         System.out.println("Enter your email(e.g. tom@something.com):");
         String customerEmail = this.keyboardReader.next();
-        HotelResource.bookARoom(customerEmail,roomChoosed,checkIn,checkOut);
+        try {
+            HotelResource.bookARoom(customerEmail,roomChoosed,checkIn,checkOut);
+        } catch (NullPointerException e) {
+            System.out.println("Email not found. Fail to reserve, please check again!");
+            return;
+        }
+
+        System.out.println("Thank you for your reservation.");
+        System.out.println("You have reserved Room No." + roomNo);
     }
 
     /**
@@ -162,13 +176,22 @@ public class MainMenu {
      * This method encapsulate the process of creating an account
      */
     public void createAccount() {
-        System.out.println("Enter your email:");
-        String email = this.keyboardReader.next();
-        System.out.println("Enter your first name:");
-        String firstName = this.keyboardReader.next();
-        System.out.println("Enter your last name");
-        String lastName = this.keyboardReader.next();
-        HotelResource.createACustomer(email,firstName,lastName);
+        boolean createFinished = false;
+        while (!createFinished) {
+            System.out.println("Enter your email:");
+            String email = this.keyboardReader.next();
+            System.out.println("Enter your first name:");
+            String firstName = this.keyboardReader.next();
+            System.out.println("Enter your last name");
+            String lastName = this.keyboardReader.next();
+            try {
+                HotelResource.createACustomer(email,firstName,lastName);
+                createFinished = true;
+                System.out.println("Your account has been created.");
+            } catch(IllegalArgumentException e) {
+                System.out.println("Please try it again!");
+            }
+        }
     }
 
     /**

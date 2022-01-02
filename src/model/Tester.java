@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Tester {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException{
         Customer customer1 = new Customer("Jingkai","Zhang","jz544@cornell.com");
 //        System.out.println(customer1);
 //
@@ -28,10 +28,10 @@ public class Tester {
 //        } catch (ParseException e) {
 //
 //        }
-        System.out.println(customer1.getEmail());
-        String p = "jz544@cornell.com";
-        if (customer1.getEmail().equals(p)) {
-            System.out.println("equal");
-        }
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = sf.parse("2020-10-25");
+        Date d2 = sf.parse("2020-10-25");
+        int result = d1.compareTo(d2);
+        System.out.println(result);
     }
 }

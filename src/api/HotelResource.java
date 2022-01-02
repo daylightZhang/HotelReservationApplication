@@ -24,6 +24,9 @@ public class HotelResource {
 
     public static Reservation bookARoom(String customerEmail, IRoom room, Date checkInDate, Date checkOutDate) {
         Customer customer = CustomerService.getCustomer(customerEmail);
+        if (customer == null)
+            throw new NullPointerException();
+
         return ReservationService.reserveARoom(customer,room,checkInDate,checkOutDate);
     }
 

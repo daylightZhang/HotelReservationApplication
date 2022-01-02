@@ -47,9 +47,14 @@ public class AdminMenu extends MainMenu {
     public void seeAllCustomers() {
         Collection<Customer> allCustomers = AdminResource.getAllCustomer();
         Iterator<Customer> it = allCustomers.iterator();
+        int customerCounter = 1;
+        System.out.println("=========Customer Info========");
         while (it.hasNext()) {
+            System.out.println("Customer No." + customerCounter);
+            customerCounter++;
             System.out.println(it.next());
         }
+        System.out.println("==============================");
     }
 
     /**
@@ -78,9 +83,13 @@ public class AdminMenu extends MainMenu {
         String roomNo = this.keyboardReader.next();
         System.out.println("Enter the price:");
         double price = this.keyboardReader.nextDouble();
-        System.out.println("Enter the room type (single or double):");
-        String roomTypeString = this.keyboardReader.next();
-        RoomType roomType = roomTypeString == "single" ? RoomType.SINGLE : RoomType.DOUBLE;
+        System.out.println("Enter the room type (1 for single, 2 for double):");
+        int roomTypeInt = this.keyboardReader.nextInt();
+        RoomType roomType = roomTypeInt == 1 ? RoomType.SINGLE : RoomType.DOUBLE;
         AdminResource.addRoom(roomNo,price,roomType);
+        System.out.println("The added room's information:");
+        System.out.println("Room No." + roomNo);
+        System.out.println("Price per night:" + price + "$");
+        System.out.println("Room type:" + roomType);
     }
 }
