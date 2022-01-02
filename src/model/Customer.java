@@ -1,5 +1,9 @@
 package model;
 
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Customer {
     private String firstName;
     private String lastName;
@@ -44,7 +48,9 @@ public class Customer {
     public boolean regex(String email) {
         // check if the input email is valid
         // the email should have the following format: name@domain.com
-        return false;
+        String emailRegex = "^(.+)@(.+).(.+)$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        return pattern.matcher(email).matches();
     }
 
     @Override
@@ -55,4 +61,13 @@ public class Customer {
                 ", email='" + email + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(email, customer.email);
+    }
+
 }

@@ -1,5 +1,11 @@
 package api;
 
+import model.Customer;
+import model.IRoom;
+import model.Reservation;
+
+import java.util.Collection;
+
 public class AdminMenu extends MainMenu {
 
     public AdminMenu(){
@@ -21,24 +27,28 @@ public class AdminMenu extends MainMenu {
 
     public void optionProcess(int option) {
         switch (option){
-            case 1:
-
-                break;
-            case 2:
-
-                break;
-            case 3:
-
-                break;
-
-            case 4:
-
-                break;
-
-            case 5:
-                this.setRunning(false);                  // exit the admin menu
-                break;
-
+            case 1: seeAllCustomers();        break;
+            case 2: seeAllRooms();            break;
+            case 3: seeAllReservations();     break;
+            case 4: addARoom();               break;
+            case 5: this.setRunning(false);   break;             // exit the admin menu
         }
+    }
+
+    public static void seeAllCustomers() {
+        Collection<Customer> allCustomers = AdminResource.getAllCustomer();
+
+    }
+
+    public static void seeAllRooms() {
+        Collection<IRoom> allRooms = AdminResource.getAllRooms();
+    }
+
+    public static void seeAllReservations() {
+        AdminResource.displayAllReservations();
+    }
+
+    public static void addARoom() {
+        AdminResource.addRoom();
     }
 }

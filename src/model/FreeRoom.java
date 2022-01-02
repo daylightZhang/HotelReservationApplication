@@ -6,6 +6,8 @@ public class FreeRoom extends Room{
     }
 
     @Override
+    public boolean isFree() {return true;}
+    @Override
     public String toString() {
         return "FreeRoom{}" + super.toString();
     }

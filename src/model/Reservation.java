@@ -52,7 +52,7 @@ public class Reservation {
     @Override
     public String toString() {
         return "Reservation{" +
-                "customer=" + customer +
+                "customer=" + customer.toString() +
                 ", room=" + room +
                 ", checkInDate=" + checkInDate +
                 ", checkOutDate=" + checkOutDate +

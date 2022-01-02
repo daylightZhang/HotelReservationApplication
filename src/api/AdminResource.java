@@ -1,29 +1,34 @@
 package api;
 
-import model.Customer;
-import model.IRoom;
+import model.*;
+import service.CustomerService;
+import service.ReservationService;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Iterator;
 
 public class AdminResource {
-//    public static Customer getCustomer(String email) {
-//        System.out.println("hello");
-//    }
-//
-//    public static void addRoom(List<IRoom> rooms) {
-//
-//    }
-//
-//    public static Collection<IRoom> getAllRooms() {
-//
-//    }
-//
-//    public static Collection<Customer> getAllCustomer() {
-//
-//    }
+    public static Customer getCustomer(String email) {
+        return CustomerService.getCustomer(email);
+    }
 
-    public void displayAllReservations() {
+    public static void addRoom(ArrayList<IRoom> rooms) {
+        Iterator<IRoom> it = rooms.iterator();
+        while (it.hasNext()) {
+            ReservationService.addRoom(it.next());
+        }
+    }
 
+    public static Collection<IRoom> getAllRooms() {
+        return ReservationService.getRoomDatabase();
+    }
+
+    public static Collection<Customer> getAllCustomer() {
+        return CustomerService.getCustomersDatabase();
+    }
+
+    public static void displayAllReservations() {
+        ReservationService.printAllReservation();
     }
 }

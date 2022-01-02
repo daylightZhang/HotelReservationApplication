@@ -1,8 +1,6 @@
 package api;
 
-import model.Customer;
-import service.CustomerService;
-
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,7 +26,7 @@ public class MainMenu {
 
     /**
      * Main of Hotel Reservation Application
-     * @param args
+     * @param args, String[] type
      */
     public static void main(String[] args) {
         MainMenu mainMenu = new MainMenu();
@@ -64,7 +62,7 @@ public class MainMenu {
     /**
      * This methods get the valid option from user.
      * It will not return until the user gives the valid input.
-     * @return the method will return the valid option from user.
+     * @return int type, the method will return the valid option from user.
      */
     public int getOptionFromKeyboard() {
         int option;
@@ -88,7 +86,7 @@ public class MainMenu {
 
     /**
      * This methods process the option input from user
-     * @param option from user's input to command line, could be 1 to 5
+     * @param option, int type, from user's input to command line, could be 1 to 5
      */
     public void optionProcess(int option) {
         switch (option){
@@ -109,15 +107,25 @@ public class MainMenu {
      * This methods encapsulate the process of finding and reserving a room
      */
     public void findAndReserveARoom() {
+        String checkInDate, checkOutDate;
+        System.out.println("Enter the check in date:");
+        checkInDate = this.keyboardReader.next();
+        System.out.println("Enter the check out date:");
+        checkOutDate = this.keyboardReader.next();
 
+        HotelResource.findARoom(checkInDate,checkOutDate);
 
+        HotelResource.bookARoom();
     }
 
     /**
      * This methods encapsulate the process of viewing all reservations
      */
     public void seeMyReservations() {
-
+        String email;
+        System.out.println("Enter the email that you want to search:");
+        email = this.keyboardReader.next();
+        HotelResource.getCustomersReservations(email);
     }
 
     /**
@@ -130,7 +138,7 @@ public class MainMenu {
         String firstName = this.keyboardReader.next();
         System.out.println("Enter your last name");
         String lastName = this.keyboardReader.next();
-//        CustomerService.addCustomer(email,firstName,lastName);
+        HotelResource.createACustomer(email,firstName,lastName);
     }
 
     /**
