@@ -113,9 +113,9 @@ public class MainMenu {
         System.out.println("Enter the check out date:");
         checkOutDate = this.keyboardReader.next();
 
-        HotelResource.findARoom(checkInDate,checkOutDate);
+//        HotelResource.findARoom(checkInDate,checkOutDate);
 
-        HotelResource.bookARoom();
+//        HotelResource.bookARoom();
     }
 
     /**

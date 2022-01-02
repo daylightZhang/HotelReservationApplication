@@ -20,6 +20,11 @@ public class AdminResource {
         }
     }
 
+    public static void addRoom(String roomNumber, Double price, RoomType enumeration) {
+        IRoom r = new Room(roomNumber, price, enumeration);
+        ReservationService.addRoom(r);
+    }
+
     public static Collection<IRoom> getAllRooms() {
         return ReservationService.getRoomDatabase();
     }

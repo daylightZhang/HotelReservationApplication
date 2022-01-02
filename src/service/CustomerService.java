@@ -19,7 +19,7 @@ public class CustomerService {
      * @param lastName String type, last name of the customer
      */
     public static void addCustomer(String email, String firstName, String lastName) {
-        Customer c = new Customer(email,firstName,lastName);
+        Customer c = new Customer(firstName,lastName,email);
         customersDatabase.add(c);
     }
 

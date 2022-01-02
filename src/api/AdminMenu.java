@@ -3,11 +3,14 @@ package api;
 import model.Customer;
 import model.IRoom;
 import model.Reservation;
+import model.RoomType;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.Scanner;
 
 public class AdminMenu extends MainMenu {
-
+    private static Scanner keyboardReader = new Scanner(System.in);
     public AdminMenu(){
         super();
     }
@@ -37,11 +40,18 @@ public class AdminMenu extends MainMenu {
 
     public static void seeAllCustomers() {
         Collection<Customer> allCustomers = AdminResource.getAllCustomer();
-
+        Iterator<Customer> it = allCustomers.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 
     public static void seeAllRooms() {
         Collection<IRoom> allRooms = AdminResource.getAllRooms();
+        Iterator<IRoom> it = allRooms.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 
     public static void seeAllReservations() {
@@ -49,6 +59,13 @@ public class AdminMenu extends MainMenu {
     }
 
     public static void addARoom() {
-        AdminResource.addRoom();
+        System.out.println("Enter room number:");
+        String roomNo = keyboardReader.next();
+        System.out.println("Enter the price:");
+        double price = keyboardReader.nextDouble();
+        System.out.println("Enter the room type (single or double):");
+        String roomTypeString = keyboardReader.next();
+        RoomType roomType = roomTypeString == "single" ? RoomType.SINGLE : RoomType.DOUBLE;
+        AdminResource.addRoom(roomNo,price,roomType);
     }
 }

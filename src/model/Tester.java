@@ -8,9 +8,9 @@ public class Tester {
         System.out.println(customer1);
 
         // regular expression for email
-        Customer customer2 = new Customer("first","second","email@something");
+        Customer customer2 = new Customer("first","second","email@something.com");
 
-        String emailRegex = "^(.+)@(.+).(.+)$";
+        String emailRegex = "^(.+)@(.+)[.](.+)$";
         Pattern pattern = Pattern.compile(emailRegex);
         String email = "jeff@gmailcom";
 

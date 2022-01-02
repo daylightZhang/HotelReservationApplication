@@ -48,7 +48,7 @@ public class Customer {
     public boolean regex(String email) {
         // check if the input email is valid
         // the email should have the following format: name@domain.com
-        String emailRegex = "^(.+)@(.+).(.+)$";
+        String emailRegex = "^(.+)@(.+)[.](.+)$";
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
     }
