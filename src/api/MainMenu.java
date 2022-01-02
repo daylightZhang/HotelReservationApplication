@@ -1,15 +1,18 @@
 package api;
 
-import java.util.Date;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import model.IRoom;
+import model.Reservation;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Class MainMenu is the access of the Hotel Reservation Application.
  */
 public class MainMenu {
-    private boolean running;
-    private Scanner keyboardReader;
+    public boolean running;
+    public Scanner keyboardReader;
 
     public MainMenu(){
         this.keyboardReader = new Scanner(System.in);
@@ -60,7 +63,7 @@ public class MainMenu {
     }
 
     /**
-     * This methods get the valid option from user.
+     * This method get the valid option from user.
      * It will not return until the user gives the valid input.
      * @return int type, the method will return the valid option from user.
      */
@@ -85,7 +88,7 @@ public class MainMenu {
     }
 
     /**
-     * This methods process the option input from user
+     * This method process the option input from user
      * @param option, int type, from user's input to command line, could be 1 to 5
      */
     public void optionProcess(int option) {
@@ -104,32 +107,59 @@ public class MainMenu {
     }
 
     /**
-     * This methods encapsulate the process of finding and reserving a room
+     * This method encapsulate the process of finding and reserving a room
      */
     public void findAndReserveARoom() {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String checkInDate, checkOutDate;
-        System.out.println("Enter the check in date:");
-        checkInDate = this.keyboardReader.next();
-        System.out.println("Enter the check out date:");
-        checkOutDate = this.keyboardReader.next();
+        Date checkIn = new Date();
+        Date checkOut = new Date();
+        boolean isInputFinished = false;
+        while (!isInputFinished){
+            System.out.println("Enter the check in date(yyyy-MM-dd):");
+            checkInDate = this.keyboardReader.next();
+            System.out.println("Enter the check out date(yyyy-MM-dd):");
+            checkOutDate = this.keyboardReader.next();
+            try {
+                checkIn = sf.parse(checkInDate);
+                checkOut = sf.parse(checkOutDate);
+                isInputFinished = true;
+            } catch (ParseException e) {
+                System.out.println("The input is invalid, please do it again!");
+            }
+        }
 
-//        HotelResource.findARoom(checkInDate,checkOutDate);
-
-//        HotelResource.bookARoom();
+        ArrayList<IRoom> roomsAvailable = (ArrayList<IRoom>) HotelResource.findARoom(checkIn,checkOut);
+        for (IRoom room : roomsAvailable)
+            System.out.println(room);
+        System.out.println("Enter the room number that you want:");
+        String roomNo = this.keyboardReader.next();
+        IRoom roomChoosed = HotelResource.getRoom(roomNo);
+        System.out.println("Enter your email(e.g. tom@something.com):");
+        String customerEmail = this.keyboardReader.next();
+        HotelResource.bookARoom(customerEmail,roomChoosed,checkIn,checkOut);
     }
 
     /**
-     * This methods encapsulate the process of viewing all reservations
+     * This method encapsulate the process of viewing all reservations
      */
     public void seeMyReservations() {
         String email;
         System.out.println("Enter the email that you want to search:");
         email = this.keyboardReader.next();
-        HotelResource.getCustomersReservations(email);
+        ArrayList<Reservation> result = (ArrayList<Reservation>) HotelResource.getCustomersReservations(email);
+        if (result == null) {
+            System.out.println("No reservation for user:" + email + " found!");
+            return;
+        }
+        Iterator it = result.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 
     /**
-     * This methods encapsulate the process of creating an account
+     * This method encapsulate the process of creating an account
      */
     public void createAccount() {
         System.out.println("Enter your email:");
@@ -142,7 +172,7 @@ public class MainMenu {
     }
 
     /**
-     * This methods encapsulate the access to admin menu
+     * This method encapsulate the access to admin menu
      */
     public void runAdminMenu() {
         AdminMenu adminMenu = new AdminMenu();

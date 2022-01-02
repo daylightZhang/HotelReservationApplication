@@ -13,7 +13,7 @@ public class CustomerService {
     }
 
     /**
-     * This methods add the new customer and store it in the ArrayList
+     * This method add the new customer and store it in the ArrayList
      * @param email String type, the email address of the customer
      * @param firstName String type, first name of the customer
      * @param lastName String type, last name of the customer
@@ -24,7 +24,7 @@ public class CustomerService {
     }
 
     /**
-     * This methods get the customer according to his/her email
+     * This method get the customer according to his/her email
      * @param customerEmail String type, email of the customer
      * @return Customer type
      */
@@ -37,14 +37,14 @@ public class CustomerService {
                 So do not execuate it.next() twice or more in a traverse function.
              */
             curCustomer = it.next();
-            if (customerEmail == curCustomer.getEmail())
+            if (curCustomer.getEmail().equals(customerEmail))
                 return curCustomer;
         }
         return null;   // means the customer does not exist
     }
 
     /**
-     * This methods get all data about customer
+     * This method get all data about customer
      * @return Collection<Customer> type
      */
     public static Collection<Customer> getAllCustomer() {

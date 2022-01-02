@@ -30,7 +30,7 @@ public class ReservationService {
         Iterator<IRoom> it = roomDatabase.iterator();
         while (it.hasNext()) {
             temp = it.next();
-            if (temp.getRoomNumber() == roomID)
+            if (temp.getRoomNumber().equals(roomID))
                 return temp;
         }
         return null;   // return null if the roomID is not found in the database
@@ -53,7 +53,7 @@ public class ReservationService {
     }
 
     /**
-     * This methods will return all the reservations of the customer
+     * This method will return all the reservations of the customer
      * @param customer, Customer type
      * @return null if no reservations found, otherwise return Collection<Reservation> type
      */
@@ -74,7 +74,7 @@ public class ReservationService {
     }
 
     /**
-     * This methods will print all the reservation information
+     * This method will print all the reservation information
      */
     public static void printAllReservation() {
         if (reservationDatebase.isEmpty()) {
