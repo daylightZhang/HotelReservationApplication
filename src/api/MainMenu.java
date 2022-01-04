@@ -2,6 +2,7 @@ package api;
 
 import model.IRoom;
 import model.Reservation;
+import model.Room;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,10 +32,10 @@ public class MainMenu {
      * Main of Hotel Reservation Application
      * @param args, String[] type
      */
-    public static void main(String[] args) {
-        MainMenu mainMenu = new MainMenu();
-        mainMenu.run();
-    }
+//    public static void main(String[] args) {
+//        MainMenu mainMenu = new MainMenu();
+//        mainMenu.run();
+//    }
 
     /**
      * Main loop of main menu
@@ -112,8 +113,11 @@ public class MainMenu {
     public void findAndReserveARoom() {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         String checkInDate, checkOutDate;
+        boolean recommendFlag = false;
         Date checkIn = new Date();
         Date checkOut = new Date();
+        Date checkInRec = new Date();
+        Date checkOutRec = new Date();
         boolean isInputFinished = false;
         while (!isInputFinished){
             System.out.println("Enter the check in date(yyyy-MM-dd):");
@@ -130,13 +134,32 @@ public class MainMenu {
         }
 
         ArrayList<IRoom> roomsAvailable = (ArrayList<IRoom>) HotelResource.findARoom(checkIn,checkOut);
+        if (roomsAvailable == null) { // get the recommended rooms
+            checkInRec.setTime(checkIn.getTime() + 7*24*60*60*1000);     // plus  7 days
+            checkOutRec.setTime(checkOut.getTime() + 7*24*60*60*1000);   // plus  7 days
+            roomsAvailable = (ArrayList<IRoom>) HotelResource.findARoom(checkInRec,checkOutRec);
+            if (roomsAvailable == null) {// still cannot find
+                System.out.println("Sorry, there is no room available for your requirement.");
+                return;
+            }
+            recommendFlag = true;
+            System.out.println("Sorry, no room available for your requiremen.");
+            System.out.println("Recommended check-in date:" + sf.format(checkInRec));
+            System.out.println("Recommended check-out date:" + sf.format(checkOutRec));
+            System.out.println("Would you consider the recommended date with the following room?");
+        }
         System.out.println("========Room Available========");
-        for (IRoom room : roomsAvailable)
-            System.out.println(room);
+        for (IRoom room : roomsAvailable) {
+            Room roomAvail = (Room) room;
+            System.out.println(roomAvail);
+        }
+
         System.out.println("==============================");
-        System.out.println("Enter the room number that you want:");
+        System.out.println("Enter the room number that you want(enter \"no\" to skip):");
         String roomNo = this.keyboardReader.next();
         IRoom roomChoosed = HotelResource.getRoom(roomNo);
+        if (roomNo.equals("no"))
+            return;
         if (roomChoosed == null) {
             System.out.println("The room you want to book is not exist! Please check again.");
             return;
@@ -144,7 +167,10 @@ public class MainMenu {
         System.out.println("Enter your email(e.g. tom@something.com):");
         String customerEmail = this.keyboardReader.next();
         try {
-            HotelResource.bookARoom(customerEmail,roomChoosed,checkIn,checkOut);
+            if (recommendFlag)
+                HotelResource.bookARoom(customerEmail,roomChoosed,checkInRec,checkOutRec);
+            else
+                HotelResource.bookARoom(customerEmail,roomChoosed,checkIn,checkOut);
         } catch (NullPointerException e) {
             System.out.println("Email not found. Fail to reserve, please check again!");
             return;

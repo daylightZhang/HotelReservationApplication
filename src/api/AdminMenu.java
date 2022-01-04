@@ -2,12 +2,13 @@ package api;
 
 import model.Customer;
 import model.IRoom;
-import model.Reservation;
 import model.RoomType;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class AdminMenu extends MainMenu {
     public AdminMenu(){
@@ -86,10 +87,22 @@ public class AdminMenu extends MainMenu {
         System.out.println("Enter the room type (1 for single, 2 for double):");
         int roomTypeInt = this.keyboardReader.nextInt();
         RoomType roomType = roomTypeInt == 1 ? RoomType.SINGLE : RoomType.DOUBLE;
-        AdminResource.addRoom(roomNo,price,roomType);
-        System.out.println("The added room's information:");
-        System.out.println("Room No." + roomNo);
-        System.out.println("Price per night:" + price + "$");
-        System.out.println("Room type:" + roomType);
+        System.out.println("Enter the available begin time(yyyy-MM-dd):");
+        String availBegin = this.keyboardReader.next();
+        System.out.println("Enter the available end time(yyyy-MM-dd):");
+        String availEnd = this.keyboardReader.next();
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date begin = sf.parse(availBegin);
+            Date end = sf.parse(availEnd);
+            AdminResource.addRoom(roomNo,price,roomType,begin,end);
+            System.out.println("The added room's information:");
+            System.out.println("Room No." + roomNo);
+            System.out.println("Price per night:" + price + "$");
+            System.out.println("Room type:" + roomType);
+        } catch (ParseException e) {
+            System.out.println("The data you input is invalid! Try again!");
+            return;
+        }
     }
 }

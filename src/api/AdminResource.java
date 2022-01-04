@@ -6,6 +6,7 @@ import service.ReservationService;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 public class AdminResource {
@@ -20,8 +21,8 @@ public class AdminResource {
         }
     }
 
-    public static void addRoom(String roomNumber, Double price, RoomType enumeration) {
-        IRoom r = new Room(roomNumber, price, enumeration);
+    public static void addRoom(String roomNumber, Double price, RoomType enumeration, Date availBegin, Date availEnd) {
+        IRoom r = new Room(roomNumber, price, enumeration, availBegin, availEnd);
         ReservationService.addRoom(r);
     }
 
