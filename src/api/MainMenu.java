@@ -15,6 +15,7 @@ public class MainMenu {
     public boolean running;
     public Scanner keyboardReader;
 
+
     public MainMenu(){
         this.keyboardReader = new Scanner(System.in);
         this.running = true;
