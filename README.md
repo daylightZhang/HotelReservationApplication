@@ -1,5 +1,5 @@
 # Java Practice Project
 
-run main.class to start the application.
+run /src/main.java to start the application.
 
 ## more to come
