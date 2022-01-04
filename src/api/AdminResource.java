@@ -11,30 +11,30 @@ import java.util.Iterator;
 
 public class AdminResource {
     public static Customer getCustomer(String email) {
-        return CustomerService.getCustomer(email);
+        return CustomerService.getCusService().getCustomer(email);
     }
 
     public static void addRoom(ArrayList<IRoom> rooms) {
         Iterator<IRoom> it = rooms.iterator();
         while (it.hasNext()) {
-            ReservationService.addRoom(it.next());
+            ReservationService.getResService().addRoom(it.next());
         }
     }
 
-    public static void addRoom(String roomNumber, Double price, RoomType enumeration, Date availBegin, Date availEnd) {
+    public static boolean addRoom(String roomNumber, Double price, RoomType enumeration, Date availBegin, Date availEnd) {
         IRoom r = new Room(roomNumber, price, enumeration, availBegin, availEnd);
-        ReservationService.addRoom(r);
+        return ReservationService.getResService().addRoom(r);
     }
 
     public static Collection<IRoom> getAllRooms() {
-        return ReservationService.getRoomDatabase();
+        return ReservationService.getResService().getRoomDatabase();
     }
 
     public static Collection<Customer> getAllCustomer() {
-        return CustomerService.getCustomersDatabase();
+        return CustomerService.getCusService().getCustomersDatabase();
     }
 
     public static void displayAllReservations() {
-        ReservationService.printAllReservation();
+        ReservationService.getResService().printAllReservation();
     }
 }

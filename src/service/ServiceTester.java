@@ -24,14 +24,22 @@ public class ServiceTester {
         System.out.println("the customer is "+c);
         */
 //        Customer c1 = new Customer("jj","zz","jz544@cornell....com");
-//        IRoom r1 = new Room("101",100.0, RoomType.SINGLE);
+
 //        IRoom r2 = new Room("103",150.0, RoomType.DOUBLE);
 //        ReservationService.addRoom(r1);
 //        ReservationService.addRoom(r2);
 //        System.out.println(ReservationService.getARoom("103"));
 //        Date checkInDate = new Date(2021,1,2);
 //        Date checkOutDate = new Date(2021,2,1);
+//        IRoom r1 = new Room("101",100.0, RoomType.SINGLE,checkInDate,checkOutDate);
 //        ReservationService.reserveARoom(c1,r2,checkInDate,checkOutDate);
 //        ReservationService.printAllReservation();
+//        ReservationService myService = ReservationService.getSingleton();
+//        myService.addRoom(r1);
+//        IRoom r = myService.getARoom("101");
+//        System.out.println(r);
+//        ReservationService second = ReservationService.getSingleton();
+//        IRoom rr = myService.getARoom("101");
+//        System.out.println(rr);
     }
 }

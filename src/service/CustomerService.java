@@ -6,9 +6,16 @@ import java.util.*;
 
 public class CustomerService {
 
-    private static Collection<Customer> customersDatabase = new ArrayList<>();  // container
+    final private static Collection<Customer> customersDatabase = new ArrayList<>();  // container
+    private static CustomerService singleInstance = null;
 
-    public static Collection<Customer> getCustomersDatabase() {
+    public static CustomerService getCusService() {
+        if (singleInstance == null)
+            singleInstance = new CustomerService();
+        return singleInstance;
+    }
+
+    public Collection<Customer> getCustomersDatabase() {
         return customersDatabase;
     }
 
@@ -18,7 +25,7 @@ public class CustomerService {
      * @param firstName String type, first name of the customer
      * @param lastName String type, last name of the customer
      */
-    public static void addCustomer(String email, String firstName, String lastName) {
+    public void addCustomer(String email, String firstName, String lastName) {
         Customer c = new Customer(firstName,lastName,email);
         customersDatabase.add(c);
     }
@@ -28,7 +35,7 @@ public class CustomerService {
      * @param customerEmail String type, email of the customer
      * @return Customer type
      */
-    public static Customer getCustomer(String customerEmail) {
+    public Customer getCustomer(String customerEmail) {
         Customer curCustomer;        // state a temp variable
         Iterator<Customer> it = customersDatabase.iterator();
         while (it.hasNext()) {
@@ -47,7 +54,7 @@ public class CustomerService {
      * This method get all data about customer
      * @return Collection<Customer> type
      */
-    public static Collection<Customer> getAllCustomer() {
+    public Collection<Customer> getAllCustomer() {
         return customersDatabase;
     }
 }

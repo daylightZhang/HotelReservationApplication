@@ -95,7 +95,11 @@ public class AdminMenu extends MainMenu {
         try {
             Date begin = sf.parse(availBegin);
             Date end = sf.parse(availEnd);
-            AdminResource.addRoom(roomNo,price,roomType,begin,end);
+            boolean addResult = AdminResource.addRoom(roomNo,price,roomType,begin,end);
+            if (addResult == false) {
+                System.out.println("Sorry, the room exists in the database, fail to add it.");
+                return;
+            }
             System.out.println("The added room's information:");
             System.out.println("Room No." + roomNo);
             System.out.println("Price per night:" + price + "$");

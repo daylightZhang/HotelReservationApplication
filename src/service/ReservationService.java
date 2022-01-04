@@ -8,16 +8,23 @@ import model.Room;
 import java.util.*;
 
 public class ReservationService {
-    private static Collection<IRoom> roomDatabase = new ArrayList<>();
-    private static Collection<Reservation> reservationDatabase = new ArrayList<>();
+    final private static Collection<IRoom> roomDatabase = new ArrayList<>();
+    final private static Collection<Reservation> reservationDatabase = new ArrayList<>();
+    private static ReservationService singleInstance = null;
 
     public ReservationService() {}
+
+    public static ReservationService getResService() {
+        if (singleInstance == null)
+            singleInstance = new ReservationService();
+        return singleInstance;
+    }
 
     /**
      * This method returns all the room data.
      * @return roomDatabase
      */
-    public static Collection<IRoom> getRoomDatabase() {
+    public Collection<IRoom> getRoomDatabase() {
         return roomDatabase;
     }
 
@@ -25,16 +32,36 @@ public class ReservationService {
      * This method returns all the reservation data.
      * @return reservationDatabase
      */
-    public static Collection<Reservation> getReservationDatabase() {
+    public Collection<Reservation> getReservationDatabase() {
         return reservationDatabase;
     }
 
     /**
+     * This method checks if the room exists in the database.
+     * It compares the room number to judge if the room exists.
+     * @param room
+     * @return true if the room exist, otherwise false
+     */
+    private boolean isRoomExist(IRoom room) {
+        String roomNo = room.getRoomNumber();
+        Iterator<IRoom> it = roomDatabase.iterator();
+        while (it.hasNext()) {
+            if (it.next().getRoomNumber().equals(roomNo))
+                return true;
+        }
+        return false;
+    }
+
+    /**
      * This method adds a new room, and store it in the array list.
+     * If the room exists in the database, add will fail.
      * @param room IRoom type
      */
-    public static void addRoom(IRoom room) {
+    public boolean addRoom(IRoom room) {
+        if (this.isRoomExist(room))
+            return false;
         roomDatabase.add(room);
+        return true;
     }
 
     /**
@@ -42,7 +69,7 @@ public class ReservationService {
      * @param roomID String type
      * @return null if not found, IRoom if found
      */
-    public static IRoom getARoom(String roomID) {
+    public IRoom getARoom(String roomID) {
         IRoom temp;
         Iterator<IRoom> it = roomDatabase.iterator();
         while (it.hasNext()) {
@@ -65,7 +92,7 @@ public class ReservationService {
      * @param checkOutDate
      * @return reservation information
      */
-    public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
+    public Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate) {
         Date checkInDateCopy = new Date();
         Date checkOutDateCopy = new Date();
         Room bookedRoom = (Room)room;
@@ -101,7 +128,7 @@ public class ReservationService {
      * @param checkOutDate
      * @return result of finding
      */
-    public static Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
+    public Collection<IRoom> findRooms(Date checkInDate, Date checkOutDate) {
         Collection<IRoom> rooms = new ArrayList<>();  // store the filtering result
         Iterator<IRoom> it = roomDatabase.iterator();
         Room r;
@@ -123,7 +150,7 @@ public class ReservationService {
      * @param customer, Customer type
      * @return null if no reservations found, otherwise return Collection<Reservation> type
      */
-    public static Collection<Reservation> getCustomerReservation(Customer customer) {
+    public Collection<Reservation> getCustomerReservation(Customer customer) {
         Collection<Reservation> customerReservations = new ArrayList<>();
         Iterator<Reservation> it = reservationDatabase.iterator();
         Reservation temp;
@@ -142,7 +169,7 @@ public class ReservationService {
     /**
      * This method will print all the reservation information
      */
-    public static void printAllReservation() {
+    public void printAllReservation() {
         if (reservationDatabase.isEmpty()) {
             System.out.println("No Reservation found!");
             return;
