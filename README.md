@@ -14,5 +14,6 @@ run /src/main.java to start the application.
 **Solved:**
 - Including the final access modifiers on your data model class variables.
 - Make sure that users can book the different room numbers on the same dates don't allow the user to book the same room twice for the same dates.
+
 **Unsolved:**
 - Make sure to use the default access method for the reservation service class.
