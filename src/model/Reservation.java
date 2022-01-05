@@ -18,35 +18,35 @@ public class Reservation {
 
     public Reservation() {}
 
-    public Customer getCustomer() {
+    final public Customer getCustomer() {
         return customer;
     }
 
-    public IRoom getRoom() {
+    final public IRoom getRoom() {
         return room;
     }
 
-    public Date getCheckInDate() {
+    final public Date getCheckInDate() {
         return checkInDate;
     }
 
-    public Date getCheckOutDate() {
+    final public Date getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCustomer(Customer customer) {
+    final public void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public void setRoom(IRoom room) {
+    final public void setRoom(IRoom room) {
         this.room = room;
     }
 
-    public void setCheckInDate(Date checkInDate) {
+    final public void setCheckInDate(Date checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public void setCheckOutDate(Date checkOutDate) {
+    final public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 

@@ -36,11 +36,11 @@ public class Room implements IRoom{
      * This method checks if the room has available dates
      * @return true if there are available date slot(s), false if there is no available date.
      */
-    public boolean isAvailable() {
+    final public boolean isAvailable() {
         return !this.beginTime.isEmpty();
     }
 
-    public boolean isBookable(Date checkIn, Date checkOut) {
+    final public boolean isBookable(Date checkIn, Date checkOut) {
         Date availBegin, availEnd;
         for (int i = 0; i < this.beginTime.size(); i++){
             availBegin = this.beginTime.get(i);
@@ -50,23 +50,23 @@ public class Room implements IRoom{
         }
         return false;
     }
-    public Collection<Date> getBeginTime() {
+    final public Collection<Date> getBeginTime() {
         return this.beginTime;
     }
 
-    public Collection<Date> getEndTime() {
+    final  public Collection<Date> getEndTime() {
         return this.endTime;
     }
 
-    public void setBeginTime(Collection<Date> newBeginTime) {
+    final public void setBeginTime(Collection<Date> newBeginTime) {
         this.beginTime = (ArrayList<Date>) newBeginTime;
     }
 
-    public void setEndTime(Collection<Date> newEndTime) {
+    final public void setEndTime(Collection<Date> newEndTime) {
         this.endTime = (ArrayList<Date>) newEndTime;
     }
 
-    private String printAvailableTime() {
+    final private String printAvailableTime() {
         String displayContent = "";
         String displayDate;
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
@@ -87,7 +87,7 @@ public class Room implements IRoom{
      * begin time should be 2020-10-12, end time should be 2020-10-15.
      * @param newBeginTime Date type, begin available time of a room
      */
-    private void addBeginTime(Date newBeginTime) {
+    final private void addBeginTime(Date newBeginTime) {
         this.beginTime.add(newBeginTime);
     }
 
@@ -97,7 +97,7 @@ public class Room implements IRoom{
      * begin time should be 2020-10-12, end time should be 2020-10-15.
      * @param newEndTime Date type, end available time of a room
      */
-    private void addEndTime(Date newEndTime) {
+    final private void addEndTime(Date newEndTime) {
         this.endTime.add(newEndTime);
     }
 
@@ -105,7 +105,7 @@ public class Room implements IRoom{
      * This method remove the begin date from array list.
      * @param d Date type
      */
-    private void removeBeginTime(Date d) {
+    final private void removeBeginTime(Date d) {
         if (this.beginTime.contains(d)) {
             this.beginTime.remove(d);
         } else
@@ -116,7 +116,7 @@ public class Room implements IRoom{
      * This method remove the end date from array list.
      * @param d Date type
      */
-    private void removeEndTime(Date d) {
+    final private void removeEndTime(Date d) {
         if (this.endTime.contains(d)) {
             this.endTime.remove(d);
         } else
@@ -124,29 +124,29 @@ public class Room implements IRoom{
     }
 
     @Override
-    public String getRoomNumber() {
+    final public String getRoomNumber() {
         return roomNumber;
     }
 
     @Override
-    public Double getRoomPrice() {
+    final public Double getRoomPrice() {
         return price;
     }
 
     @Override
-    public RoomType getRoomType() {
+    final public RoomType getRoomType() {
         return enumeration;
     }
 
-    public void setRoomNumber(String roomNumber) {
+    final public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
     }
 
-    public void setPrice(Double price) {
+    final public void setPrice(Double price) {
         this.price = price;
     }
 
-    public void setEnumeration(RoomType enumeration) {
+    final public void setEnumeration(RoomType enumeration) {
         this.enumeration = enumeration;
     }
 

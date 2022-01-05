@@ -20,33 +20,37 @@ public class Customer {
         }
     }
 
-    public Customer() {}
+    public Customer() {
+        this.firstName = "None";
+        this.lastName = "None";
+        this.email = "None";
+    }
 
-    public String getFirstName() {
+    final public String getFirstName() {
         return firstName;
     }
 
-    public String getLastName() {
+    final public String getLastName() {
         return lastName;
     }
 
-    public String getEmail() {
+    final public String getEmail() {
         return email;
     }
 
-    public void setFirstName(String firstName) {
+    final public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
-    public void setLastName(String lastName) {
+    final public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public void setEmail(String email) {
+    final public void setEmail(String email) {
         this.email = email;
     }
 
-    public boolean regex(String email) {
+    final public boolean regex(String email) {
         // check if the input email is valid
         // the email should have the following format: name@domain.com
         String emailRegex = "^(.+)@(.+)[.](.+)$";
@@ -55,13 +59,13 @@ public class Customer {
     }
 
     @Override
-    public String toString() {
+    final public String toString() {
         return "Name:" + firstName + " " + lastName + "\n" +
                 "Email:" + email + "\n";
     }
 
     @Override
-    public boolean equals(Object o) {
+    final public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Customer customer = (Customer) o;

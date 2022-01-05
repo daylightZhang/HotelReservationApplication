@@ -7,8 +7,8 @@ run /src/main.java to start the application.
 ## logging
 
 ### version 3.0
-- implement all the function mentioned in the project requirements.
-- test most of the function.
+- Implement all the function mentioned in the project requirements.
+- Test most of the function.
 
 ### version 3.1
 **Solved:**
@@ -17,3 +17,8 @@ run /src/main.java to start the application.
 
 **Unsolved:**
 - Make sure to use the default access method for the reservation service class.
+
+### version 3.2
+- Fix the bug that a room can be booked multiple times.
+- Use default access method.
+- Make the default constructor private to create singleton objects.

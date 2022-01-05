@@ -120,6 +120,7 @@ public class MainMenu {
         Date checkInRec = new Date();
         Date checkOutRec = new Date();
         boolean isInputFinished = false;
+        ArrayList<String> availRooms = new ArrayList<>();
         while (!isInputFinished){
             System.out.println("Enter the check in date(yyyy-MM-dd):");
             checkInDate = this.keyboardReader.next();
@@ -152,19 +153,25 @@ public class MainMenu {
         System.out.println("========Room Available========");
         for (IRoom room : roomsAvailable) {
             Room roomAvail = (Room) room;
+            availRooms.add(room.getRoomNumber());
             System.out.println(roomAvail);
         }
 
         System.out.println("==============================");
-        System.out.println("Enter the room number that you want(enter \"no\" to skip):");
-        String roomNo = this.keyboardReader.next();
-        IRoom roomChoosed = HotelResource.getRoom(roomNo);
-        if (roomNo.equals("no"))
-            return;
-        if (roomChoosed == null) {
-            System.out.println("The room you want to book is not exist! Please check again.");
-            return;
+        isInputFinished = false;
+        String roomNo = "";
+        while (!isInputFinished) {
+            System.out.println("Enter the room number that you want(enter \"no\" to skip):");
+            roomNo = this.keyboardReader.next();
+            if (roomNo.equals("no"))
+                return;
+            if (availRooms.contains(roomNo) == false) {
+                System.out.println("The room you choose is not available!");
+                continue;
+            }
+            isInputFinished = true;
         }
+        IRoom roomChoosed = HotelResource.getRoom(roomNo);
         System.out.println("Enter your email(e.g. tom@something.com):");
         String customerEmail = this.keyboardReader.next();
         try {

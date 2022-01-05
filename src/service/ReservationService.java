@@ -12,8 +12,15 @@ public class ReservationService {
     final private static Collection<Reservation> reservationDatabase = new ArrayList<>();
     private static ReservationService singleInstance = null;
 
-    public ReservationService() {}
+    /**
+     * Set the default constructor to private to achieve Class-based Singleton.
+     */
+    private ReservationService() {}
 
+    /**
+     * Without any keywords, meaning 'default' access type.
+     * @return the single instance if it is not created.
+     */
     public static ReservationService getResService() {
         if (singleInstance == null)
             singleInstance = new ReservationService();
@@ -37,12 +44,13 @@ public class ReservationService {
     }
 
     /**
+     * <No access keyword means 'default'.>
      * This method checks if the room exists in the database.
      * It compares the room number to judge if the room exists.
      * @param room
      * @return true if the room exist, otherwise false
      */
-    private boolean isRoomExist(IRoom room) {
+    boolean isRoomExist(IRoom room) {
         String roomNo = room.getRoomNumber();
         Iterator<IRoom> it = roomDatabase.iterator();
         while (it.hasNext()) {

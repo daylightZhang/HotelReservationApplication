@@ -8,9 +8,9 @@ public class FreeRoom extends Room{
     }
 
     @Override
-    public boolean isFree() {return true;}
+    final public boolean isFree() {return true;}
     @Override
-    public String toString() {
+    final public String toString() {
         return "FreeRoom{}" + super.toString();
     }
 }
